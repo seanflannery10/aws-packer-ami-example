@@ -1,0 +1,47 @@
+---
+- name: Update repository and Upgrade packages
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Setup timezone to America/New_York
+  timezone:
+    name: "{{ set_timezone }}"
+
+- name: Install utilities
+  apt:
+    name:
+      - git
+      - wget
+      - curl
+      - vim
+      - nfs-common
+      - apt-transport-https
+      - ca-certificates
+      - ufw
+      - cloud-init
+    state: present
+
+- name: Set authorized keys taken from url
+  authorized_key:
+    user: "{{ create_user }}"
+    state: present
+    key: "{{ copy_local_key }}"
+
+- name: Disable password authentication for root
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    state: present
+    regexp: "^#?PermitRootLogin"
+    line: "PermitRootLogin prohibit-password"
+
+- name: UFW - Allow SSH connections
+  ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: UFW - Deny all other incoming traffic by default
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming
