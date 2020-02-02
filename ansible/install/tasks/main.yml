@@ -1,0 +1,13 @@
+---
+- name: Create a data container
+  docker_container:
+    name: hello-world-docker
+    image: seanflannery/hello-world-docker
+    state: started
+    restart_policy: always
+
+- name: UFW - Allow HTTP connections
+  ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
