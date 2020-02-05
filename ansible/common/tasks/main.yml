@@ -24,7 +24,7 @@
 
 - name: Set authorized keys taken from url
   authorized_key:
-    user: "{{ create_user }}"
+    user: "{{ user }}"
     state: present
     key: "{{ copy_local_key }}"
 

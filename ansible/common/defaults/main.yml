@@ -1,4 +1,4 @@
 ---
 set_timezone: America/New_York
-create_user: ansible
+user: ubuntu
 copy_local_key: https://github.com/seanflannery10.keys
