@@ -18,7 +18,6 @@
       - nfs-common
       - apt-transport-https
       - ca-certificates
-      - ufw
       - cloud-init
     state: present
 
@@ -34,14 +33,4 @@
     state: present
     regexp: "^#?PermitRootLogin"
     line: "PermitRootLogin prohibit-password"
-
-- name: UFW - Allow SSH connections
-  ufw:
-    rule: allow
-    name: OpenSSH
-
-- name: UFW - Deny all other incoming traffic by default
-  ufw:
-    state: enabled
-    policy: deny
-    direction: incoming
+    
