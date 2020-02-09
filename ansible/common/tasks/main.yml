@@ -19,6 +19,7 @@
       - apt-transport-https
       - ca-certificates
       - cloud-init
+      - python-docker
     state: present
 
 - name: Set authorized keys taken from url
